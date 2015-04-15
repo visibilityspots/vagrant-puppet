@@ -1,0 +1,6 @@
+---
+classes:
+  - roles::puppet
+  - ntp
+
+puppet::runmode: cron

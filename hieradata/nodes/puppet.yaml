@@ -1,0 +1,22 @@
+---
+classes:
+  - roles::puppetmaster
+
+puppetdb::ssl_listen_address: 0.0.0.0
+
+puppetdb::master::config::puppetdb_server: puppet
+puppetdb::master::config::puppet_service_name: puppetserver
+puppetdb::master::config::restart_puppet: false
+puppetdb::master::config::manage_storeconfigs: false
+
+puppet::server: true
+puppet::puppetmaster: puppet
+puppet::ssldir: $confdir/ssl
+puppet::runmode: none
+puppet::server_external_nodes: ''
+puppet::server_foreman: false
+puppet::server_report: store, puppetdb
+puppet::server_storeconfigs_backend: puppetdb
+puppet::server_implementation: puppetserver
+puppet::server_ssl_dir: /etc/puppet/ssl
+puppet::server_environments: []

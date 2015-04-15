@@ -1,0 +1,14 @@
+---
+:hierarchy:
+        - "nodes/%{::hostname}"
+        - "environments/%{::environment}"
+        - common
+
+:backends:
+        - yaml
+
+:yaml:
+        :datadir: '/etc/hiera'
+
+:merge_behaviour:
+        :deeper
