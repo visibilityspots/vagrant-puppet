@@ -9,6 +9,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.provider :virtualbox do |virtualbox, override|
     override.vm.box = "vStone/centos-6.x-puppet.3.x"
+    virtualbox.customize ["modifyvm", :id, "--memory", 3072]
+
   end
 
   config.vm.provider :lxc do |lxc, override|
