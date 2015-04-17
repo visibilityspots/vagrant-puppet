@@ -18,13 +18,13 @@ class roles::puppetmaster {
       changes => [
         'set /files/etc/yum.repos.d/puppetlabs.repo/puppetlabs/enabled 1',
       ],
+      before  => Class['::puppet::server::service']
     }
   }
 
   include ::profiles::puppet
   include ::profiles::puppetdb
 
-  Augeas['enable_puppetlabs_repo'] ->
   Class['::puppet::server::service'] ->
   Class['::puppetdb::server']
 }
