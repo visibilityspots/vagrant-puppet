@@ -1,7 +1,6 @@
 .vagrant/
 puppet/ssl
 puppet/environments/development
-puppet/environments/production/modules/*
 
 puppet/environments/production/.modules/
 scripts/set-proxy.sh
