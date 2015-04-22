@@ -4,6 +4,8 @@
 
 class roles::puppetmaster {
 
+  $puppet_server = hiera('puppet::server_implementation')
+
   yumrepo { 'epel':
     descr          => 'Extra Packages for Enterprise Linux 6 - $basearch',
     baseurl        => 'http://download.fedoraproject.org/pub/epel/6/$basearch',
@@ -20,6 +22,14 @@ class roles::puppetmaster {
       ],
       before  => Class['::puppet::server::service']
     }
+  }
+
+  augeas { 'enable_auto_sign':
+    changes => [
+      'set /files/etc/puppet/puppet.conf/master/autosign true',
+    ],
+    require => Class['::puppet::server::config'],
+    notify  => Service[$puppet_server]
   }
 
   include ::profiles::puppet
