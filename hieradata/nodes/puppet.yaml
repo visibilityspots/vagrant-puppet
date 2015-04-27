@@ -17,8 +17,4 @@ puppet::server_foreman: false
 puppet::server_report: store, puppetdb
 puppet::server_storeconfigs_backend: puppetdb
 puppet::server_implementation: puppetserver
-
-puppet::server_ssl_dir: /var/lib/puppet/ssl
-puppet::ssldir: /var/lib/puppet/ssl
-
 puppet::server_environments: []
