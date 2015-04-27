@@ -1,7 +1,5 @@
 # Vagrant puppet showcase
 
-This still is under heavy development and not working as I wish yet.
-
 The idea is to have a basic puppetmaster/client setup running with puppetserver/puppetdb in the master branch and creating branches for little proof of concepts like for example an ELK stack.
 
 Virtualization of the machines should be hybrid for both virtualbox and lxc containers depending on the --provider parameter. Default this would be virtualbox.
@@ -23,24 +21,25 @@ Virtualization of the machines should be hybrid for both virtualbox and lxc cont
 
 ## Setup
 
-
 ### Networking
 
 If you use virtualbox as virtualization solution the ip addresses of the nodes are staticly been configured in the Vagrantfile. Adopt to your needs if necessary.
 
 For the lxc provider vagrant will locate an ip address provided by the dhcp service you have configured for your lxc setup.
 
-Using the [vagrant-hostmanager]() plugin the hosts file on your local machine as those on the vm's are being updated automatically with the new addresses located through vagrant. That way you could use dns names instead of ip addresses.
+Using the [vagrant-hostmanager](https://github.com/smdahlen/vagrant-hostmanager) plugin the hosts file on your local machine as well as those on the vm's are being updated automatically with the new addresses located through vagrant. That way you could use dns names instead of ip addresses.
 
 ### Puppet
 
-Since this is a development setup and you probably don't want to sign each certificate when bringing up a vm the [auto sign option](https://docs.puppetlabs.com/puppet/latest/reference/ssl_autosign.html#nave-autosigning) has been enabled. Because the used puppet-puppet module doesn't have this feature I configured the option through augeas in the puppetmaster role. This implies that every time you provision the puppetmaster the puppetserver will be restarted unfortunately.
+Since this is a development setup and you probably don't want to sign each certificate when bringing up a vm the [naive auto sign option](https://docs.puppetlabs.com/puppet/latest/reference/ssl_autosign.html#nave-autosigning) has been enabled. Because the used puppet-puppet module doesn't have this feature I configured the option through augeas in the puppetmaster role. This implies that every time you provision the puppetmaster the puppetserver will be restarted unfortunately.
 
 ### Shared folders
 
-To have the ability to change the configuration on your local machine using your favorite editor I configured shared folders for the hiera data through rsync. To enable this functionality you have to use the [rsync-auto](http://docs.vagrantupcom/v2/cli/rsync-auto.html) daemon.
+To have the ability to change the configuration on your local machine using your favorite editor I configured shared folders for the hiera data through rsync. I had to use the rsync provider since the lxc provider doesn't support the ownership/group parameters of the default shared folders of vagrant.
 
-Take care this causes some breaking issues for the moment. [Issues section](#Issues)
+Adding an extra module to the modules directory on your local machine which you want to be synced to the VM is rather easy. You clone the module to the appropriate place and the perform a manual [vagrant rsync](http://docs.vagrantup.com/v2/cli/rsync.html).
+
+When you are editing fils in your heira hierarchy you could use the [rsync-auto](http://docs.vagrantupcom/v2/cli/rsync-auto.html) daemon.
 
 ## Usage
 
@@ -60,7 +59,3 @@ $ vagrant up puppetmaster
 ```bash
 $ vagrant up client
 ```
-
-## Issues
-
-Once you enabled the rsync-auto daemon the /etc/puppet/ssl directory will be cleaned which crashes the puppetmaster. Reallocating the ssl directory configuration wise doesn't solve the issue neither does the exclude option of the rsync feature.
