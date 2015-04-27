@@ -31,8 +31,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     puppetmaster.vm.synced_folder "hieradata", "/etc/hiera", type: "rsync",
 	rsync__chown: false
     puppetmaster.vm.synced_folder "puppet", "/etc/puppet", type: "rsync",
-	rsync__auto: false,
-	rsync__exclude: "ssl"
+	rsync__chown: false
 
     puppetmaster.vm.provider :lxc do |lxc|
       lxc.container_name = 'dev-puppetmaster'
@@ -66,4 +65,5 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
 
   end
+
 end
