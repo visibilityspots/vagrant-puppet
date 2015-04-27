@@ -40,3 +40,6 @@
 [submodule "puppet/environments/production/modules/stdlib"]
 	path = puppet/environments/production/modules/stdlib
 	url = git@github.com:puppetlabs/puppetlabs-stdlib.git
+[submodule "puppet/environments/production/modules/puppetboard"]
+	path = puppet/environments/production/modules/puppetboard
+	url = git@github.com:puppet-community/puppet-module-puppetboard.git
