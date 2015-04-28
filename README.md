@@ -59,3 +59,31 @@ $ vagrant up puppetmaster
 ```bash
 $ vagrant up client
 ```
+
+### Using the different branches to spin up different proof of concepts
+
+You have to checkout the branch you want to test:
+
+```bash
+$ vagrant destroy -f
+$ git checkout puppetboard
+$ git submodule update --init --recursive
+$ vagrant up puppetmaster
+$ vagrant up client
+```
+
+When going back to the master branch you will notice that the puppet/environments/production/modules is messed up with the featurebranche's submodules. You can easily clean this up with
+
+```bash
+$ git clean -d -f -f
+```
+
+acoording to the docs:
+
+       -d
+           Remove untracked directories in addition to untracked files. If an untracked directory is managed by a different Git repository, it is not removed by default. Use -f option twice if you really want to remove such a directory.
+
+       -f, --force
+           If the Git configuration variable clean.requireForce is not set to false, git clean will refuse to delete files or directories unless given -f, -n or -i. Git will refuse to delete directories with .git sub directory or file unless a second -f is given.
+           This affects also git submodules where the storage area of the removed submodule under .git/modules/ is not removed until -f is given twice.
+
