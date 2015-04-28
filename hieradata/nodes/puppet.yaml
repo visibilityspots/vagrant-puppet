@@ -14,7 +14,7 @@ puppet::runmode: none
 puppet::hiera_config: /etc/hiera/hiera.yaml
 puppet::server_external_nodes: ''
 puppet::server_foreman: false
-puppet::server_report: store, puppetdb
+puppet::server_reports: puppetdb
 puppet::server_storeconfigs_backend: puppetdb
 puppet::server_implementation: puppetserver
 puppet::server_environments: []
