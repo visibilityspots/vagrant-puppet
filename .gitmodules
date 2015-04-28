@@ -43,3 +43,9 @@
 [submodule "puppet/environments/production/modules/puppetboard"]
 	path = puppet/environments/production/modules/puppetboard
 	url = git@github.com:puppet-community/puppet-module-puppetboard.git
+[submodule "puppet/environments/production/modules/python"]
+	path = puppet/environments/production/modules/python
+	url = git@github.com:stankevich/puppet-python.git
+[submodule "puppet/environments/production/modules/vcsrepo"]
+	path = puppet/environments/production/modules/vcsrepo
+	url = git@github.com:puppetlabs/puppetlabs-vcsrepo.git
