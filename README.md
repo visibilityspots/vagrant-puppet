@@ -39,7 +39,7 @@ To have the ability to change the configuration on your local machine using your
 
 Adding an extra module to the modules directory on your local machine which you want to be synced to the VM is rather easy. You clone the module to the appropriate place and the perform a manual [vagrant rsync](http://docs.vagrantup.com/v2/cli/rsync.html).
 
-When you are editing fils in your heira hierarchy you could use the [rsync-auto](http://docs.vagrantupcom/v2/cli/rsync-auto.html) daemon.
+When you are editing files in your hiera hierarchy you could use the [rsync-auto](http://docs.vagrantupcom/v2/cli/rsync-auto.html) daemon.
 
 ## Usage
 
@@ -72,13 +72,13 @@ $ vagrant up puppetmaster
 $ vagrant up client
 ```
 
-When going back to the master branch you will notice that the puppet/environments/production/modules is messed up with the featurebranche's submodules. You can easily clean this up with
+When going back to the master branch you will notice that the puppet/environments/production/modules is messed up with the feature branches submodules. You can easily clean this up with
 
 ```bash
 $ git clean -d -f -f
 ```
 
-acoording to the docs:
+according to the docs:
 
        -d
            Remove untracked directories in addition to untracked files. If an untracked directory is managed by a different Git repository, it is not removed by default. Use -f option twice if you really want to remove such a directory.
