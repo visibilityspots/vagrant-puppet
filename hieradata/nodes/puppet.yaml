@@ -1,6 +1,7 @@
 ---
 classes:
   - roles::puppetmaster
+  - roles::puppetboard
 
 puppetdb::ssl_listen_address: 0.0.0.0
 puppetdb::master::config::puppetdb_server: puppet
@@ -14,7 +15,18 @@ puppet::runmode: none
 puppet::hiera_config: /etc/hiera/hiera.yaml
 puppet::server_external_nodes: ''
 puppet::server_foreman: false
-puppet::server_report: store, puppetdb
+puppet::server_reports: puppetdb
 puppet::server_storeconfigs_backend: puppetdb
 puppet::server_implementation: puppetserver
 puppet::server_environments: []
+
+puppetboard::manage_git: true
+puppetboard::manage_virtualenv: true
+puppetboard::unresponsive: 1
+
+apache::manage_group: false
+apache::manage_user: false
+apache::purge_configs: false
+apache::mpm_module: prefork
+default_vhost: true
+default_mods: false
