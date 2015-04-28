@@ -20,7 +20,7 @@ $ vagrant up puppetmaster
 $ vagrant provision puppetmaster
 ```
 
-You should now be able to surf to http://puppet/puppetboard to see the last provisioned puppet run.
+You should now be able to surf to [http://puppet/puppetboard]() to see the last provisioned puppet run.
 
 To spin up a client and view those reports:
 
