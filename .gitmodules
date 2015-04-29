@@ -40,3 +40,9 @@
 [submodule "puppet/environments/production/modules/stdlib"]
 	path = puppet/environments/production/modules/stdlib
 	url = git@github.com:puppetlabs/puppetlabs-stdlib.git
+[submodule "puppet/environments/production/modules/elasticsearch"]
+	path = puppet/environments/production/modules/elasticsearch
+	url = git@github.com:elastic/puppet-elasticsearch.git
+[submodule "puppet/environments/production/modules/java"]
+	path = puppet/environments/production/modules/java
+	url = git@github.com:puppetlabs/puppetlabs-java.git
