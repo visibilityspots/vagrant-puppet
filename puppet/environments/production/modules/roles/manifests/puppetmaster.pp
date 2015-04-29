@@ -6,15 +6,6 @@ class roles::puppetmaster {
 
   $puppet_server = hiera('puppet::server_implementation')
 
-  yumrepo { 'epel':
-    descr          => 'Extra Packages for Enterprise Linux 6 - $basearch',
-    baseurl        => 'http://download.fedoraproject.org/pub/epel/6/$basearch',
-    mirrorlist     => 'https://mirrors.fedoraproject.org/metalink?repo=epel-6&arch=$basearch',
-    failovermethod => 'priority',
-    enabled        => false,
-    gpgcheck       => '0',
-  }
-
   if $::virtual=='virtualbox' {
     augeas { 'enable_puppetlabs_repo':
       changes => [
