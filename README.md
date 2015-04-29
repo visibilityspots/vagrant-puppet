@@ -1,4 +1,4 @@
-# Vagrant puppet showcase
+# Vagrant puppet
 
 The idea is to have a basic puppetmaster/client setup running with puppetserver/puppetdb in the master branch and creating branches for little proof of concepts like for example an ELK stack.
 
