@@ -11,8 +11,16 @@ class roles::puppetboard {
       ],
       before  => Class['::puppetboard']
     }
+  } else {
+      yumrepo { 'epel':
+        descr      => 'Extra Packages for Enterprise Linux',
+        mirrorlist => 'https://mirrors.fedoraproject.org/metalink?repo=epel-6&arch=$basearch',
+        gpgkey     => 'http://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-6',
+        enabled    => 1,
+        gpgcheck   => 1;
+      }
   }
+
   include ::profiles::apache
   include ::profiles::puppetboard
-
 }
