@@ -1,6 +1,6 @@
-# ==Host: default
+# default
 #
-# Default manifest to initialize a client which runs against the puppetmaster
+# Default manifest
 
 node 'default' {
 
