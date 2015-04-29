@@ -47,7 +47,8 @@ When you are editing files in your hiera hierarchy you could use the [rsync-auto
 
 ```bash
 $ git clone git@github.com:visibilityspots/vagrant-puppet.git
-$ git submodule update --init
+$ git clean -d -f -f
+$ git submodule update --init --recursive
 ```
 
 ### Bringing up the puppetmaster
@@ -55,35 +56,50 @@ $ git submodule update --init
 $ vagrant up puppetmaster
 ```
 
-### Bringing up a node against the puppetmaster
-```bash
-$ vagrant up client
+# ELASTICSEARCH
+
+This project is used to set up an elastic search cluster with one instance and 2 nodes as a proof of concept.
+
+## Usage
+
+```
+$ vagrant up node01
+$ vagrant up node02
 ```
 
-### Using the different branches to spin up different proof of concepts
-
-You have to checkout the branch you want to test:
+## Test the setup
 
 ```bash
-$ vagrant destroy -f
-$ git checkout puppetboard
-$ git submodule update --init --recursive
-$ vagrant up puppetmaster
-$ vagrant up client
-```
+$ vagrant ssh node01
+[vagrant@node01 ~]$ curl -XGET 'http://localhost:9200/_cluster/health?pretty=true'
+{
+  "cluster_name" : "cluster",
+  "status" : "green",
+  "timed_out" : false,
+  "number_of_nodes" : 2,
+  "number_of_data_nodes" : 2,
+  "active_primary_shards" : 0,
+  "active_shards" : 0,
+  "relocating_shards" : 0,
+  "initializing_shards" : 0,
+  "unassigned_shards" : 0
+}
 
-When going back to the master branch you will notice that the puppet/environments/production/modules is messed up with the feature branches submodules. You can easily clean this up with
+```
 
 ```bash
-$ git clean -d -f -f
+$vagrant ssh node02
+[vagrant@node02 ~]$ curl -XGET 'http://localhost:9200/_cluster/health?pretty=true'
+{
+  "cluster_name" : "cluster",
+  "status" : "green",
+  "timed_out" : false,
+  "number_of_nodes" : 2,
+  "number_of_data_nodes" : 2,
+  "active_primary_shards" : 0,
+  "active_shards" : 0,
+  "relocating_shards" : 0,
+  "initializing_shards" : 0,
+  "unassigned_shards" : 0
+}
 ```
-
-according to the docs:
-
-       -d
-           Remove untracked directories in addition to untracked files. If an untracked directory is managed by a different Git repository, it is not removed by default. Use -f option twice if you really want to remove such a directory.
-
-       -f, --force
-           If the Git configuration variable clean.requireForce is not set to false, git clean will refuse to delete files or directories unless given -f, -n or -i. Git will refuse to delete directories with .git sub directory or file unless a second -f is given.
-           This affects also git submodules where the storage area of the removed submodule under .git/modules/ is not removed until -f is given twice.
-
