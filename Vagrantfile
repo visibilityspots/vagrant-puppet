@@ -45,18 +45,39 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   end
 
-  config.vm.define :client do |client|
-    client.vm.host_name = "client"
+  config.vm.define :node01 do |node01|
+    node01.vm.host_name = "node01"
 
-    client.vm.provider :lxc do |lxc|
-      lxc.container_name = 'dev-client'
+    node01.vm.provider :lxc do |lxc|
+      lxc.container_name = 'dev-node01'
     end
 
-    client.vm.provider :virtualbox do |virtualbox, override|
+    node01.vm.provider :virtualbox do |virtualbox, override|
       override.vm.network "private_network", ip: "10.0.5.3"
     end
 
-    client.vm.provision "puppet_server" do |puppet|
+    node01.vm.provision "puppet_server" do |puppet|
+      default_env = 'production'
+      ext_env = ENV['VAGRANT_PUPPET_ENV']
+      env = ext_env ? ext_env : puppet_env
+      puppet.puppet_server = "puppet"
+      puppet.options = ["--environment", "#{env}", "--test"]
+    end
+
+  end
+
+  config.vm.define :node02 do |node02|
+    node02.vm.host_name = "node02"
+
+    node02.vm.provider :lxc do |lxc|
+      lxc.container_name = 'dev-node02'
+    end
+
+    node02.vm.provider :virtualbox do |virtualbox, override|
+      override.vm.network "private_network", ip: "10.0.5.4"
+    end
+
+    node02.vm.provision "puppet_server" do |puppet|
       default_env = 'production'
       ext_env = ENV['VAGRANT_PUPPET_ENV']
       env = ext_env ? ext_env : puppet_env
