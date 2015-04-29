@@ -47,7 +47,8 @@ When you are editing files in your hiera hierarchy you could use the [rsync-auto
 
 ```bash
 $ git clone git@github.com:visibilityspots/vagrant-puppet.git
-$ git submodule update --init
+$ git clean -d -f -f
+$ git submodule update --init --recursive
 ```
 
 ### Bringing up the puppetmaster
