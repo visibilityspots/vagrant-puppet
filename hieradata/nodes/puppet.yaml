@@ -19,6 +19,7 @@ puppet::server_reports: puppetdb
 puppet::server_storeconfigs_backend: puppetdb
 puppet::server_implementation: puppetserver
 puppet::server_environments: []
+puppet::show_diff: true
 
 puppetboard::manage_git: true
 puppetboard::manage_virtualenv: true
