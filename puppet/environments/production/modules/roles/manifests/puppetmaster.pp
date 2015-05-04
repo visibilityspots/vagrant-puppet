@@ -15,14 +15,6 @@ class roles::puppetmaster {
     }
   }
 
-  augeas { 'enable_auto_sign':
-    changes => [
-      'set /files/etc/puppet/puppet.conf/master/autosign true',
-    ],
-    require => Class['::puppet::server::config'],
-    notify  => Service[$puppet_server]
-  }
-
   include ::profiles::puppet
   include ::profiles::puppetdb
 
