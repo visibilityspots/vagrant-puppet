@@ -6,6 +6,21 @@ That way I could create branches based on this master branch for little proof of
 
 Virtualization of the machines should be hybrid for both virtualbox and lxc containers depending on the --provider parameter. Default this would be virtualbox.
 
+## OS & Virtualization
+
+
+Based on CentOS I tested both centos 6.x and 7.x using the virtualbox and lxc provider. The boxes used are:
+
+CentOS 6.x
+
+* lxc: [visibilityspots/centos-6.x-puppet-3.x](https://atlas.hashicorp.com/visibilityspots/boxes/centos-6.x-puppet-3.x)
+* virtualbox: [vstone/centos-6.x-puppet.3.x](https://atlas.hashicorp.com/vStone/boxes/centos-6.x-puppet.3.x)
+
+CentOS 7.x
+
+* lxc: [visibilityspots/centos-7.x-puppet-3.x](https://atlas.hashicorp.com/visibilityspots/boxes/centos-7.x-puppet-3.x)
+* virtualbox: [vstone/centos-7.x-puppet.3.x](https://atlas.hashicorp.com/vStone/boxes/centos-7.x-puppet.3.x)
+
 ## Requirements
 
 * [vagrant](https://www.vagrantup.com/) installed
