@@ -1,5 +1,11 @@
 ---
 classes:
   - roles::puppetclient
+  - nfs::server
 
 puppet::runmode: none
+
+nfs::server::export:
+  '/data':
+    ensure: 
+      mounted
