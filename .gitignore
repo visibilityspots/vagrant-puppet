@@ -4,3 +4,5 @@ puppet/environments/development
 
 puppet/environments/production/.modules/
 scripts/set-proxy.sh
+
+*.vdi
