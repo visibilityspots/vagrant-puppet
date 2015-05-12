@@ -56,8 +56,6 @@ Adding an extra module to the modules directory or changing hiera data on your l
 
 You could instead of manually sync your changes every now and then also enable the [rsync-auto](http://docs.vagrantupcom/v2/cli/rsync-auto.html) daemon.
 
-## Usage
-
 ### Initialize your local environment
 
 ```bash
@@ -71,39 +69,49 @@ $ git submodule update --init --recursive
 $ vagrant up puppetmaster
 ```
 
-### Bringing up a node against the puppetmaster
-```bash
-$ vagrant up client
-```
+# NFS
 
-### Using the different branches to spin up different proof of concepts
+This project is used to set up a an NFS server which auto provisions shares and an NFS client which mounts an auto provisioned share through puppet based on lvm volumes.
 
-You have to checkout the branch you want to test:
+It currently only works for the virtualbox provider and NOT using the lxc provider!
+
+## Usage
+
+### Initialize your local environment
 
 ```bash
 $ vagrant destroy -f
-$ git checkout puppetboard
+$ git checkout nfs
 $ git clean -d -f -f
 $ git submodule update --init --recursive
-$ vagrant up puppetmaster
-$ vagrant up client
 ```
 
-
-### Git clean
-
-When going back to the master branch you will notice that the puppet/environments/production/modules is messed up with the feature branches submodules. You can easily clean this up with
-
+### Bringing up the puppetmaster
 ```bash
-$ git clean -d -f -f
+$ vagrant up puppetmaster --provider virtualbox
 ```
 
-according to the docs:
+### Bringing up the NFS server
+```bash
+$ vagrant up node01 --provider virtualbox
+$ vagrant ssh node01
+$ showmount -e localhost
+Export list for localhost:
+/data 10.0.5.0/24
+```
 
-       -d
-           Remove untracked directories in addition to untracked files. If an untracked directory is managed by a different Git repository, it is not removed by default. Use -f option twice if you really want to remove such a directory.
+### Bringing up the NFS client
+```bash
+$ vagrant up node02 --provider virtualbox
+$ vagrant ssh node02
+$ df -h
+Filesystem            Size  Used Avail Use% Mounted on
+/dev/mapper/VolGroupOS-lv_root
+                      6.7G  653M  5.7G  11% /
+tmpfs                 1.5G     0  1.5G   0% /dev/shm
+/dev/sda1              93M   24M   65M  27% /boot
+vagrant               145G   95G   51G  66% /vagrant
+10.0.5.3:/data        976M  1.0M  924M   1% /data
+```
 
-       -f, --force
-           If the Git configuration variable clean.requireForce is not set to false, git clean will refuse to delete files or directories unless given -f, -n or -i. Git will refuse to delete directories with .git sub directory or file unless a second -f is given.
-           This affects also git submodules where the storage area of the removed submodule under .git/modules/ is not removed until -f is given twice.
-
+As you could see on the node01 and node02 boxes a /data directory has been shared by node01 the NFS server based on a logical lvm volume on it. This share on his turn is mounted on the node02.
