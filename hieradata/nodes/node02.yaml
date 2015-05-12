@@ -1,0 +1,12 @@
+---
+classes:
+  - roles::puppetclient
+  - roles::nfs_client
+
+puppet::runmode: none
+
+mounts:
+  /data:
+    server: 10.0.5.3
+    share: /data
+    options: rw

@@ -1,0 +1,25 @@
+---
+classes:
+  - roles::puppetclient
+  - roles::nfs_server
+
+puppet::runmode: none
+
+directories:
+  /data:
+    ensure: directory
+
+lvm::volume_groups:
+  vg_data:
+    physical_volumes:
+      - /dev/sdb
+    logical_volumes:
+      lv_exports:
+        size: 1G
+        mountpath: /data
+        mountpath_require: true
+
+exports:
+  /data:
+    ensure: mounted
+    clients: '10.0.5.0/24(rw,all_squash) localhost(rw)'
