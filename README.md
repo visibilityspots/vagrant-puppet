@@ -74,6 +74,13 @@ $ vagrant up puppetmaster
 $ vagrant up client
 ```
 
+### Bring up everything
+
+Or your could immediatly bring up both nodes by
+```bash
+$ vagrant up --no-parallel
+```
+
 ### Using the different branches to spin up different proof of concepts
 
 You have to checkout the branch you want to test:
@@ -86,7 +93,6 @@ $ git submodule update --init --recursive
 $ vagrant up puppetmaster
 $ vagrant up client
 ```
-
 
 ### Git clean
 
