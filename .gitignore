@@ -6,3 +6,5 @@ puppet/environments/production/.modules/
 scripts/set-proxy.sh
 
 *.vdi
+.rspec
+*.bak

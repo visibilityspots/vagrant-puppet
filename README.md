@@ -86,7 +86,6 @@ $ git clean -d -f -f
 $ git submodule update --init --recursive
 ```
 
-### Bringing up the puppetmaster
 ```bash
 $ vagrant up puppetmaster --provider virtualbox
 ```
