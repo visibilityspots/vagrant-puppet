@@ -95,7 +95,6 @@ $ vagrant ssh node01
   "initializing_shards" : 0,
   "unassigned_shards" : 0
 }
-
 ```
 
 ```bash
