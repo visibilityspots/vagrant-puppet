@@ -54,8 +54,6 @@ Adding an extra module to the modules directory or changing hiera data on your l
 
 You could instead of manually sync your changes every now and then also enable the [rsync-auto](http://docs.vagrantupcom/v2/cli/rsync-auto.html) daemon.
 
-## Usage
-
 ### Initialize your local environment
 
 ```bash
@@ -69,45 +67,20 @@ $ git submodule update --init --recursive
 $ vagrant up puppetmaster
 ```
 
-### Bringing up a node against the puppetmaster
+# YUM-REPO-SERVER
+
+I created this repository so people can quickly spin up a [vagrant](http://www.vagrantup.com/) box which allows you to have an hands on overview of the [yum-repo-server](https://github.com/ImmobilienScout24/yum-repo-server).
+
+The installation and configuration of the necessary services (jetty - mongodb - yum-repo-server and yum-repo-client) are all done by some puppet-modules I wrote.
+
+## Usage
+
 ```bash
 $ vagrant up client
+$ vagrant ssh client
+$ repoclient create test-repository
 ```
 
-### Bring up everything
+Surf to http://client:8888/yum-repo-server and you should see the test-repository listed.
 
-Or your could immediatly bring up both nodes by
-```bash
-$ vagrant up --no-parallel
-```
-
-### Using the different branches to spin up different proof of concepts
-
-You have to checkout the branch you want to test:
-
-```bash
-$ vagrant destroy -f
-$ git checkout puppetboard
-$ git clean -d -f -f
-$ git submodule update --init --recursive
-$ vagrant up puppetmaster
-$ vagrant up client
-```
-
-### Git clean
-
-When going back to the master branch you will notice that the puppet/environments/production/modules is messed up with the feature branches submodules. You can easily clean this up with
-
-```bash
-$ git clean -d -f -f
-```
-
-according to the docs:
-
-       -d
-           Remove untracked directories in addition to untracked files. If an untracked directory is managed by a different Git repository, it is not removed by default. Use -f option twice if you really want to remove such a directory.
-
-       -f, --force
-           If the Git configuration variable clean.requireForce is not set to false, git clean will refuse to delete files or directories unless given -f, -n or -i. Git will refuse to delete directories with .git sub directory or file unless a second -f is given.
-           This affects also git submodules where the storage area of the removed submodule under .git/modules/ is not removed until -f is given twice.
-
+![interface-repo](/img/created-repo.png)

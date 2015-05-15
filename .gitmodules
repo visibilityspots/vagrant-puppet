@@ -40,3 +40,15 @@
 [submodule "puppet/environments/production/modules/stdlib"]
 	path = puppet/environments/production/modules/stdlib
 	url = git@github.com:puppetlabs/puppetlabs-stdlib.git
+[submodule "puppet/environments/production/modules/jetty"]
+	path = puppet/environments/production/modules/jetty
+	url = git@github.com:visibilityspots/puppet-jetty.git
+[submodule "puppet/environments/production/modules/mongodb"]
+	path = puppet/environments/production/modules/mongodb
+	url = git@github.com:visibilityspots/puppet-mongodb.git
+[submodule "puppet/environments/production/modules/yum_repo_client"]
+	path = puppet/environments/production/modules/yum_repo_client
+	url = git@github.com:visibilityspots/puppet-yum_repo_client.git
+[submodule "puppet/environments/production/modules/yum_repo_server"]
+	path = puppet/environments/production/modules/yum_repo_server
+	url = git@github.com:visibilityspots/puppet-yum_repo_server.git
