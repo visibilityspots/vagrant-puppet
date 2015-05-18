@@ -54,6 +54,18 @@ Adding an extra module to the modules directory or changing hiera data on your l
 
 You could instead of manually sync your changes every now and then also enable the [rsync-auto](http://docs.vagrantupcom/v2/cli/rsync-auto.html) daemon.
 
+### Serverspec
+
+I wrote some small tests using [serverspec](http://serverspec.org) to test if the functionality of the different machines is working as it supposed to be.
+
+To benefit those tests you could install the [vagrant-serverspec](https://github.com/jvoorhis/vagrant-serverspec) plugin:
+
+```bash
+$ vagrant plugin install vagrant-serverspec
+```
+
+## Usage
+
 ### Initialize your local environment
 
 ```bash
@@ -80,6 +92,13 @@ $ vagrant up node02
 
 ## Test the setup
 
+Using serverspec
+```bash
+$ vagrant provision node01 --provision-with serverspec
+```
+
+or manually
+
 ```bash
 $ vagrant ssh node01
 [vagrant@node01 ~]$ curl -XGET 'http://localhost:9200/_cluster/health?pretty=true'
@@ -98,6 +117,13 @@ $ vagrant ssh node01
 ```
 
 ```bash
+Using serverspec
+```bash
+$ vagrant provision node01 --provision-with serverspec
+
+or manually
+
+```
 $vagrant ssh node02
 [vagrant@node02 ~]$ curl -XGET 'http://localhost:9200/_cluster/health?pretty=true'
 {
