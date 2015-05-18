@@ -54,6 +54,16 @@ Adding an extra module to the modules directory or changing hiera data on your l
 
 You could instead of manually sync your changes every now and then also enable the [rsync-auto](http://docs.vagrantupcom/v2/cli/rsync-auto.html) daemon.
 
+### Serverspec
+
+I wrote some small tests using [serverspec](http://serverspec.org) to test if the functionality of the different machines is working as it supposed to be.
+
+To benefit those tests you could install the [vagrant-serverspec](https://github.com/jvoorhis/vagrant-serverspec) plugin:
+
+```bash
+$ vagrant plugin install vagrant-serverspec
+```
+
 ## Usage
 
 ### Initialize your local environment
@@ -79,6 +89,13 @@ $ vagrant up client
 Or your could immediatly bring up both nodes by
 ```bash
 $ vagrant up --no-parallel
+```
+
+### Run the serverspec
+
+Once the machines are up and running you could always rerun the serverspecs
+```bash
+$ vagrant provision --provision-with serverspec
 ```
 
 ### Using the different branches to spin up different proof of concepts
