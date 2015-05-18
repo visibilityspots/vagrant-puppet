@@ -116,14 +116,13 @@ $ vagrant ssh node01
 }
 ```
 
-```bash
 Using serverspec
 ```bash
 $ vagrant provision node01 --provision-with serverspec
+```
 
 or manually
-
-```
+```bash
 $vagrant ssh node02
 [vagrant@node02 ~]$ curl -XGET 'http://localhost:9200/_cluster/health?pretty=true'
 {
