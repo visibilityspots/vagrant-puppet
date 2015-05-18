@@ -56,6 +56,18 @@ Adding an extra module to the modules directory or changing hiera data on your l
 
 You could instead of manually sync your changes every now and then also enable the [rsync-auto](http://docs.vagrantupcom/v2/cli/rsync-auto.html) daemon.
 
+### Serverspec
+
+I wrote some small tests using [serverspec](http://serverspec.org) to test if the functionality of the different machines is working as it supposed to be.
+
+To benefit those tests you could install the [vagrant-serverspec](https://github.com/jvoorhis/vagrant-serverspec) plugin:
+
+```bash
+$ vagrant plugin install vagrant-serverspec
+```
+
+## Usage
+
 ### Initialize your local environment
 
 ```bash
@@ -75,8 +87,6 @@ This project is used to set up a an NFS server which auto provisions shares and 
 
 It currently only works for the virtualbox provider and NOT using the lxc provider!
 
-## Usage
-
 ### Initialize your local environment
 
 ```bash
@@ -93,6 +103,15 @@ $ vagrant up puppetmaster --provider virtualbox
 ### Bringing up the NFS server
 ```bash
 $ vagrant up node01 --provider virtualbox
+```
+
+Test the functionality
+```bash
+$ vagrant provision node01 --provision-with serverspec
+```
+
+manually
+```bash
 $ vagrant ssh node01
 $ showmount -e localhost
 Export list for localhost:
@@ -102,6 +121,15 @@ Export list for localhost:
 ### Bringing up the NFS client
 ```bash
 $ vagrant up node02 --provider virtualbox
+```
+
+Test the functionality
+```bash
+$ vagrant provision node01 --provision-with serverspec
+```
+
+manually
+```bash
 $ vagrant ssh node02
 $ df -h
 Filesystem            Size  Used Avail Use% Mounted on
