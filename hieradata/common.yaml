@@ -1,5 +1,7 @@
 ---
-classes:
-  -
-
 role: initial
+
+classes:
+  - profiles::puppet
+
+puppet::runmode: none
