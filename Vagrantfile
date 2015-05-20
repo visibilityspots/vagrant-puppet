@@ -16,8 +16,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.cache.scope = :box
   end
 
-  if File.exist?('scripts/set-proxy.sh')
-    config.vm.provision "shell", path: "scripts/set-proxy.sh"
+  set_proxy = false
+  set_proxy_env = ENV['VAGRANT_SET_PROXY']
+  proxy = set_proxy_env ? set_proxy_env : set_proxy
+
+  if proxy == 'true'
+    if File.exist?('scripts/set-proxy.sh')
+      config.vm.provision "shell", path: "scripts/set-proxy.sh"
+    end
   end
 
   config.vm.provider :virtualbox do |virtualbox, override|
@@ -31,9 +37,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.define :puppetmaster do |puppetmaster|
     puppetmaster.vm.host_name = "puppet"
     puppetmaster.vm.synced_folder "hieradata", "/etc/hiera", type: "rsync",
-	rsync__chown: false
+      rsync__chown: false
     puppetmaster.vm.synced_folder "puppet/environments/production", "/etc/puppet/environments/production", type: "rsync",
-	rsync__chown: false
+      rsync__chown: false
     puppetmaster.vm.provider :lxc do |lxc|
       lxc.container_name = 'dev-puppetmaster'
     end
@@ -42,6 +48,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       virtualbox.customize ["modifyvm", :id, "--memory", 3072]
     end
     puppetmaster.vm.provision "shell", path: "scripts/puppetmaster.sh"
+    if Vagrant.has_plugin?("vagrant-serverspec")
+      puppetmaster.vm.provision :serverspec do |spec|
+        spec.pattern = 'spec/puppetmaster/*_spec.rb'
+      end
+    end
   end
 
   config.vm.define :client do |client|
@@ -58,6 +69,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       env = ext_env ? ext_env : default_env
       puppet.puppet_server = "puppet"
       puppet.options = ["--environment", "#{env}", "--test"]
+    end
+    if Vagrant.has_plugin?("vagrant-serverspec")
+      client.vm.provision :serverspec do |spec|
+        spec.pattern = 'spec/client/*_spec.rb'
+      end
     end
   end
 
