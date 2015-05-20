@@ -1,8 +1,10 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 ENV['VAGRANT_DEFAULT_PROVIDER'] = 'virtualbox'
+
 VAGRANTFILE_API_VERSION = "2"
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
 
   unless Vagrant.has_plugin?("vagrant-hostmanager")
     raise 'vagrant-hostmanager plugin is not installed!'
@@ -113,3 +115,4 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
 end
+

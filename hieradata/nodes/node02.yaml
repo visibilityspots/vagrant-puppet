@@ -1,9 +1,5 @@
 ---
-classes:
-  - roles::puppetclient
-  - roles::nfs_client
-
-puppet::runmode: none
+role: nfsclient
 
 mounts:
   /data:
