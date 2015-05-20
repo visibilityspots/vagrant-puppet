@@ -1,6 +1,7 @@
 ---
+role: puppetclient
+
 classes:
-  - roles::puppetclient
   - roles::yum_repo_server
 
 puppet::runmode: none
