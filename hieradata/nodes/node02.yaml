@@ -1,13 +1,5 @@
 ---
-classes:
-  - roles::puppetclient
-  - roles::elasticsearch
-
-puppet::runmode: none
-
-elasticsearch::manage_repo: true
-elasticsearch::repo_version: '1.4'
-elasticsearch::java_install: true
+role: elasticsearch
 
 elasticsearch::config:
   cluster.name: cluster

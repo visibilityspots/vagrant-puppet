@@ -1,0 +1,7 @@
+---
+classes:
+  - roles::elasticsearch
+
+elasticsearch::manage_repo: true
+elasticsearch::repo_version: '1.4'
+elasticsearch::java_install: true
