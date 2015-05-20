@@ -21,7 +21,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   set_proxy_env = ENV['VAGRANT_SET_PROXY']
   proxy = set_proxy_env ? set_proxy_env : set_proxy
 
-  if proxy == true
+  if proxy == 'true'
     if File.exist?('scripts/set-proxy.sh')
       config.vm.provision "shell", path: "scripts/set-proxy.sh"
     end
