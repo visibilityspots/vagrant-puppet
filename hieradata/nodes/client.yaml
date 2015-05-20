@@ -1,5 +1,2 @@
 ---
-classes:
-  - roles::puppetclient
-
-puppet::runmode: none
+role: puppetclient
