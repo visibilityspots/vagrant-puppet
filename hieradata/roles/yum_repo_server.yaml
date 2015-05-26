@@ -1,0 +1,12 @@
+---
+classes:
+  - roles::yum_repo_server
+
+jetty::pkg_name: jetty-9-1.3
+
+mongodb::dbpath: /var/lib/mongo
+
+yum_repo_server::context: yum-repo-server
+
+yum_repo_client::port: 8888
+yum_repo_client::context: yum-repo-server
