@@ -58,10 +58,11 @@ You could instead of manually sync your changes every now and then also enable t
 
 I wrote some small tests using [serverspec](http://serverspec.org) to test if the functionality of the different machines is working as it supposed to be.
 
-To benefit those tests you could install the [vagrant-serverspec](https://github.com/jvoorhis/vagrant-serverspec) plugin:
+To benefit those tests you could install the serverspec gem and run a rake command:
 
 ```bash
-$ vagrant plugin install vagrant-serverspec
+$ gem install serverspec
+$ rake spec
 ```
 
 ## Usage
@@ -91,11 +92,11 @@ Or your could immediatly bring up both nodes by
 $ vagrant up --no-parallel
 ```
 
-### Run the serverspec
+### Serverspec
 
-Once the machines are up and running you could always rerun the serverspecs
+To test the functionality you can run the serverspec tests
 ```bash
-$ vagrant provision --provision-with serverspec
+$ rake spec
 ```
 
 ### Using the different branches to spin up different proof of concepts
