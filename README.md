@@ -58,10 +58,11 @@ You could instead of manually sync your changes every now and then also enable t
 
 I wrote some small tests using [serverspec](http://serverspec.org) to test if the functionality of the different machines is working as it supposed to be.
 
-To benefit those tests you could install the [vagrant-serverspec](https://github.com/jvoorhis/vagrant-serverspec) plugin:
+To benefit those tests you could install the serverspec gem and run a rake command:
 
 ```bash
-$ vagrant plugin install vagrant-serverspec
+$ gem install serverspec
+$ rake spec
 ```
 
 ## Usage
@@ -92,12 +93,12 @@ $ vagrant up node02
 
 ## Test the setup
 
-Using serverspec
+### Using serverspec
 ```bash
-$ vagrant provision node01 --provision-with serverspec
+$ rake spec
 ```
 
-or manually
+### Or manually
 
 ```bash
 $ vagrant ssh node01
