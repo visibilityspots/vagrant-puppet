@@ -52,11 +52,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       virtualbox.customize ["modifyvm", :id, "--memory", 3072]
     end
     puppetmaster.vm.provision "shell", path: "scripts/puppetmaster.sh"
-    if Vagrant.has_plugin?("vagrant-serverspec")
-      puppetmaster.vm.provision :serverspec do |spec|
-        spec.pattern = 'spec/puppetmaster/*_spec.rb'
-      end
-    end
   end
 
   config.vm.define :node01 do |node01|
@@ -106,11 +101,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       env = ext_env ? ext_env : default_env
       puppet.puppet_server = "puppet"
       puppet.options = ["--environment", "#{env}", "--test"]
-    end
-    if Vagrant.has_plugin?("vagrant-serverspec")
-      node02.vm.provision :serverspec do |spec|
-        spec.pattern = 'spec/node02/*_spec.rb'
-      end
     end
   end
 
