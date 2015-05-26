@@ -1,0 +1,20 @@
+---
+classes:
+  - roles::puppetboard
+
+puppetboard::manage_git: true
+puppetboard::manage_virtualenv: true
+puppetboard::unresponsive: 1
+puppetboard::puppetdb_host: puppet
+puppetboard::puppetdb_port: 8081
+puppetboard::puppetdb_key: /var/lib/puppet/ssl/private_keys/%{::fqdn}.pem
+puppetboard::puppetdb_ssl: False
+puppetboard::puppetdb_cert: /var/lib/puppet/ssl/certs/%{::fqdn}.pem
+puppetboard::groups: puppet
+
+apache::manage_group: false
+apache::manage_user: false
+apache::purge_configs: false
+apache::mpm_module: prefork
+default_vhost: true
+default_mods: false

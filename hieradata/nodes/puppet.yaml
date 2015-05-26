@@ -1,17 +1,2 @@
 ---
 role: puppetserver
-
-classes:
-  - roles::puppetboard
-
-
-puppetboard::manage_git: true
-puppetboard::manage_virtualenv: true
-puppetboard::unresponsive: 1
-
-apache::manage_group: false
-apache::manage_user: false
-apache::purge_configs: false
-apache::mpm_module: prefork
-default_vhost: true
-default_mods: false
