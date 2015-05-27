@@ -1,5 +1,3 @@
-NOT FUNCTIONING YET
-
 # Vagrant puppet
 
 The idea is to have a basic puppetmaster/client setup running with [puppetserver](https://docs.puppetlabs.com/puppetserver/latest/services_master_puppetserver.html) and [puppetdb](http://docs.puppetlabs.com/puppetdb/latest/) in the master branch.
@@ -87,12 +85,12 @@ $ vagrant up puppetmaster --provider=virtualbox
 
 ### NFS server
 ```bash
-$ vagrant up node01 --provider virtualbox
+$ vagrant up node01 --provider=virtualbox
 ```
 
 ### NFS client
 ```bash
-$ vagrant up node02 --provider virtualbox
+$ vagrant up node02 --provider=virtualbox
 ```
 
 ## Test
