@@ -87,14 +87,17 @@ $ vagrant up puppetmaster
 $ vagrant up client
 ```
 
-### tests
+## Test
 
+### serverspec
 To test the functionality you can run the serverspec tests
 ```bash
 $ rake spec
 ```
 
 The installation and configuration of the necessary services (jetty - mongodb - yum-repo-server and yum-repo-client) are all done by some puppet-modules I wrote.
+
+### manual
 
 To see if the yum-repo-server actually works you could create a test repo
 
