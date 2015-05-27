@@ -54,24 +54,24 @@ Adding an extra module to the modules directory or changing hiera data on your l
 
 You could instead of manually sync your changes every now and then also enable the [rsync-auto](http://docs.vagrantupcom/v2/cli/rsync-auto.html) daemon.
 
-### Initialize your local environment
+### Serverspec
+
+I wrote some small tests using [serverspec](http://serverspec.org) to test if the functionality of the different machines is working as it supposed to be.
+
+To benefit those tests you could install the [vagrant-serverspec](https://github.com/jvoorhis/vagrant-serverspec) plugin:
 
 ```bash
-$ git clone git@github.com:visibilityspots/vagrant-puppet.git
-$ git clean -d -f -f
-$ git submodule update --init --recursive
+$ vagrant plugin install vagrant-serverspec
 ```
 
-### Bringing up the puppetmaster
-```bash
-$ vagrant up puppetmaster
-```
 
 # PUPPETBOARD
 
 This project is used to set up a puppetboard instance to view the different puppet runs
 
 ## Usage
+
+### puppetmaster
 
 ```bash
 $ vagrant destroy -f
@@ -81,10 +81,17 @@ $ git submodule update --init --recursive
 $ vagrant up puppetmaster
 ```
 
-You should now be able to surf to [http://puppet/puppetboard](http://puppet/puppetboard) to see the last provisioned puppet run.
-
-To spin up a client and view those reports:
+### client
 
 ```bash
 $ vagrant up client
+```
+
+To spin up a client and view those reports:
+You should now be able to surf to [http://puppet/puppetboard](http://puppet/puppetboard) to see the last provisioned puppet run.
+
+### tests
+
+```bash
+$ rake spec
 ```
