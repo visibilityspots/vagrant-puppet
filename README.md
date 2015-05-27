@@ -95,7 +95,7 @@ $ vagrant up node02
 $ rake spec
 ```
 
-### manually
+### manual
 
 ```bash
 $ vagrant ssh node01
