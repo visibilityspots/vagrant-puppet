@@ -58,12 +58,12 @@ You could instead of manually sync your changes every now and then also enable t
 
 I wrote some small tests using [serverspec](http://serverspec.org) to test if the functionality of the different machines is working as it supposed to be.
 
-To benefit those tests you could install the [vagrant-serverspec](https://github.com/jvoorhis/vagrant-serverspec) plugin:
+To benefit those tests you could install the serverspec gem and run a rake command:
 
 ```bash
-$ vagrant plugin install vagrant-serverspec
+$ gem install serverspec
+$ rake spec
 ```
-
 
 # PUPPETBOARD
 
