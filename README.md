@@ -65,40 +65,37 @@ $ gem install serverspec
 $ rake spec
 ```
 
-## Usage
-
-### Initialize your local environment
-
-```bash
-$ git clone git@github.com:visibilityspots/vagrant-puppet.git
-$ git clean -d -f -f
-$ git submodule update --init --recursive
-```
-
-### Bringing up the puppetmaster
-```bash
-$ vagrant up puppetmaster
-```
-
 # ELASTICSEARCH
 
 This project is used to set up an elastic search cluster with one instance and 2 nodes as a proof of concept.
 
 ## Usage
 
+### puppetmaster
+
+```bash
+$ vagrant destroy -f
+$ git checkout elasticsearch
+$ git clean -d -f -f
+$ git submodule update --init --recursive
+$ vagrant up puppetmaster
+```
+
+### client
+
 ```bash
 $ vagrant up node01
 $ vagrant up node02
 ```
 
-## Test the setup
+## Test
 
-### Using serverspec
+### serverspec
 ```bash
 $ rake spec
 ```
 
-### Or manually
+### manually
 
 ```bash
 $ vagrant ssh node01
@@ -117,12 +114,6 @@ $ vagrant ssh node01
 }
 ```
 
-Using serverspec
-```bash
-$ vagrant provision node01 --provision-with serverspec
-```
-
-or manually
 ```bash
 $vagrant ssh node02
 [vagrant@node02 ~]$ curl -XGET 'http://localhost:9200/_cluster/health?pretty=true'
