@@ -54,30 +54,52 @@ Adding an extra module to the modules directory or changing hiera data on your l
 
 You could instead of manually sync your changes every now and then also enable the [rsync-auto](http://docs.vagrantupcom/v2/cli/rsync-auto.html) daemon.
 
-### Initialize your local environment
+### Serverspec
+
+I wrote some small tests using [serverspec](http://serverspec.org) to test if the functionality of the different machines is working as it supposed to be.
+
+To benefit those tests you could install the serverspec gem and run a rake command:
 
 ```bash
-$ git clone git@github.com:visibilityspots/vagrant-puppet.git
-$ git clean -d -f -f
-$ git submodule update --init --recursive
-```
-
-### Bringing up the puppetmaster
-```bash
-$ vagrant up puppetmaster
+$ gem install serverspec
+$ rake spec
 ```
 
 # YUM-REPO-SERVER
 
 I created this repository so people can quickly spin up a [vagrant](http://www.vagrantup.com/) box which allows you to have an hands on overview of the [yum-repo-server](https://github.com/ImmobilienScout24/yum-repo-server).
 
-The installation and configuration of the necessary services (jetty - mongodb - yum-repo-server and yum-repo-client) are all done by some puppet-modules I wrote.
-
 ## Usage
+
+### puppetmaster
+
+```bash
+$ git destroy -f
+$ git checkout yum-repo-server
+$ git clean -d -f -f
+$ git submodule update --init --recursive
+$ vagrant up puppetmaster
+```
+
+### client
 
 ```bash
 $ vagrant up client
-$ vagrant ssh client
+```
+
+### tests
+
+To test the functionality you can run the serverspec tests
+```bash
+$ rake spec
+```
+
+The installation and configuration of the necessary services (jetty - mongodb - yum-repo-server and yum-repo-client) are all done by some puppet-modules I wrote.
+
+To see if the yum-repo-server actually works you could create a test repo
+
+```bash
+$ vagrant up client
 $ repoclient create test-repository
 ```
 
