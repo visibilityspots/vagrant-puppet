@@ -67,21 +67,6 @@ $ gem install serverspec
 $ rake spec
 ```
 
-## Usage
-
-### Initialize your local environment
-
-```bash
-$ git clone git@github.com:visibilityspots/vagrant-puppet.git
-$ git clean -d -f -f
-$ git submodule update --init --recursive
-```
-
-### Bringing up the puppetmaster
-```bash
-$ vagrant up puppetmaster
-```
-
 # NFS
 
 This project is used to set up a an NFS server which auto provisions shares and an NFS client which mounts an auto provisioned share through puppet based on lvm volumes.
@@ -91,15 +76,13 @@ It currently only works for the virtualbox provider and NOT using the lxc provid
 ## Usage
 
 ### puppetmaster
+
 ```bash
 $ vagrant destroy -f
 $ git checkout nfs
 $ git clean -d -f -f
 $ git submodule update --init --recursive
-```
-
-```bash
-$ vagrant up puppetmaster --provider virtualbox
+$ vagrant up puppetmaster --provider=virtualbox
 ```
 
 ### NFS server
@@ -112,14 +95,14 @@ $ vagrant up node01 --provider virtualbox
 $ vagrant up node02 --provider virtualbox
 ```
 
-### Test
+## Test
 
-#### Serverspec
+### serverspec
 ```bash
 $ rake spec
 ```
 
-#### Manually
+### manual
 ```bash
 $ vagrant ssh node01
 $ showmount -e localhost
