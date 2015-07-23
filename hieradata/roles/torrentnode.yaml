@@ -1,0 +1,5 @@
+---
+classes:
+  - roles::torrentnode
+
+transmission::config_path: /var/lib/transmission

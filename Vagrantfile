@@ -50,15 +50,32 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     puppetmaster.vm.provision "shell", path: "scripts/puppetmaster.sh"
   end
 
-  config.vm.define :client do |client|
-    client.vm.host_name = "client"
-    client.vm.provider :lxc do |lxc|
-      lxc.container_name = 'dev-client'
+  config.vm.define :tracker do |tracker|
+    tracker.vm.host_name = "tracker"
+    tracker.vm.provider :lxc do |lxc|
+      lxc.container_name = 'dev-tracker'
     end
-    client.vm.provider :virtualbox do |virtualbox, override|
+    tracker.vm.provider :virtualbox do |virtualbox, override|
       override.vm.network "private_network", ip: "10.0.5.3"
     end
-    client.vm.provision "puppet_server" do |puppet|
+    tracker.vm.provision "puppet_server" do |puppet|
+      default_env = 'production'
+      ext_env = ENV['VAGRANT_PUPPET_ENV']
+      env = ext_env ? ext_env : default_env
+      puppet.puppet_server = "puppet"
+      puppet.options = ["--environment", "#{env}", "--test"]
+    end
+  end
+
+  config.vm.define :node do |node|
+    node.vm.host_name = "node"
+    node.vm.provider :lxc do |lxc|
+      lxc.container_name = 'dev-node'
+    end
+    node.vm.provider :virtualbox do |virtualbox, override|
+      override.vm.network "private_network", ip: "10.0.5.3"
+    end
+    node.vm.provision "puppet_server" do |puppet|
       default_env = 'production'
       ext_env = ENV['VAGRANT_PUPPET_ENV']
       env = ext_env ? ext_env : default_env

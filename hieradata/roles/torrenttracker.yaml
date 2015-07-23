@@ -1,0 +1,14 @@
+---
+classes:
+  - roles::torrenttracker
+
+nginx::nginx_vhosts:
+  'validation':
+    www_root: '/var/www/html/'
+    autoindex: 'on'
+    access_log: /dev/null
+
+transmission::download_dir: /var/www/html/generated
+transmission::config_path: /var/lib/transmission
+
+profiles::opentracker::initialize_data: true

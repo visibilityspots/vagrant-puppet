@@ -40,3 +40,12 @@
 [submodule "puppet/environments/production/modules/stdlib"]
 	path = puppet/environments/production/modules/stdlib
 	url = git@github.com:puppetlabs/puppetlabs-stdlib.git
+[submodule "puppet/environments/production/modules/opentracker"]
+	path = puppet/environments/production/modules/opentracker
+	url = https://github.com/visibilityspots/puppet-opentracker
+[submodule "puppet/environments/production/modules/nginx"]
+	path = puppet/environments/production/modules/nginx
+	url = git@github.com:jfryman/puppet-nginx.git
+[submodule "puppet/environments/production/modules/transmission"]
+	path = puppet/environments/production/modules/transmission
+	url = git@github.com:visibilityspots/puppet-transmission.git

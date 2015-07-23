@@ -65,67 +65,59 @@ $ gem install serverspec
 $ rake spec
 ```
 
+# TORRENT
+
+This project is used to setup a torrent network based on [transmission-daemon]() and [opentracker]() to create your own private torrent network to exchange files amongst each other or to benchmark the torrent protocol through your infrastructure.
+
+I also created a [random-torrent-data-generator]() script which can be found on the tracker node, it will create a bunch of random files filled by /dev/urandom for different sizes. When those files are crafted it will use them to generate torrent files tracked with the local opentracker service and upload them to the tracker transmission-daemon.
+
 ## Usage
 
-### Initialize your local environment
+### puppetmaster
 
 ```bash
-$ git clone git@github.com:visibilityspots/vagrant-puppet.git
+$ git destroy -f
+$ git checkout transmission
 $ git clean -d -f -f
 $ git submodule update --init --recursive
+$ vagrant up puppetmaster --provider=lxc
 ```
 
-### Bringing up the puppetmaster
-```bash
-$ vagrant up puppetmaster
+### tracker
+
+```
+$ vagrant up tracker --provider=lxc
 ```
 
-### Bringing up a node against the puppetmaster
-```bash
-$ vagrant up client
+### node
+
+```
+$ vagrant up node --provider=lxc
 ```
 
-### Bring up everything
+## Test
 
-Or your could immediatly bring up both nodes by
-```bash
-$ vagrant up --no-parallel
-```
+### serverspec
 
-### Serverspec
-
-To test the functionality you can run the serverspec tests
 ```bash
 $ rake spec
 ```
 
-### Using the different branches to spin up different proof of concepts
+### manual
 
-You have to checkout the branch you want to test:
+tracker:
 
-```bash
-$ vagrant destroy -f
-$ git checkout puppetboard
-$ git clean -d -f -f
-$ git submodule update --init --recursive
-$ vagrant up puppetmaster
-$ vagrant up client
-```
+transmission-gui available at http://tracker:9091 (should be filled with active green transfers)
+![tracker-gui](/img/tracker-gui.png)
+opentracker stats at http://tracker:6969/stats (should be serving 8 torrents)
+![tracker-stats](/img/tracker-stats.png)
+the random data at http://tracker/generated/
+the torrent files at http://tracker/torrents
 
-### Git clean
+node:
 
-When going back to the master branch you will notice that the puppet/environments/production/modules is messed up with the feature branches submodules. You can easily clean this up with
+transmission-gui available at http://node:9091
 
-```bash
-$ git clean -d -f -f
-```
+by using a torrent file from the tracker (http://tracker/torrents/random_00010M.dat.torrent) and adding it to the node gui (open action -> url) the download should start.
 
-according to the docs:
-
-       -d
-           Remove untracked directories in addition to untracked files. If an untracked directory is managed by a different Git repository, it is not removed by default. Use -f option twice if you really want to remove such a directory.
-
-       -f, --force
-           If the Git configuration variable clean.requireForce is not set to false, git clean will refuse to delete files or directories unless given -f, -n or -i. Git will refuse to delete directories with .git sub directory or file unless a second -f is given.
-           This affects also git submodules where the storage area of the removed submodule under .git/modules/ is not removed until -f is given twice.
-
+![node-gui](/img/node-gui.png)

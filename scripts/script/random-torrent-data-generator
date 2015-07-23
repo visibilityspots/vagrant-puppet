@@ -1,0 +1,69 @@
+#!/bin/bash
+#
+# Command line script to generate random data for testing torrent protocol
+
+usage()
+{
+cat << EOF
+usage: $0 options
+
+This script creates the random data which can be used for testing the torrent platform
+
+OPTIONS:
+   -h      Show this message
+   -i      Initialize both data and torrent files server
+   -d      Generate the random test data
+   -t      Generate the torrent files of a given directory
+EOF
+}
+
+sizes=(00001 00002 00005 00010 00020 00050 00100 00200)
+data_dir='/var/www/html/generated'
+torrent_dir='/var/www/html/torrents'
+ip=$(ip route get 8.8.8.8 | awk 'NR==1 {print $NF}')
+
+while getopts "hdti" flag
+do
+  case "$flag" in
+    i)
+	/usr/bin/random-torrent-data-generator -d
+        /usr/bin/random-torrent-data-generator -t
+    ;;
+    d)
+      rm $data_dir -rf
+      mkdir -p $data_dir
+      chown transmission: $data_dir
+
+      for size in "${sizes[@]}"; do
+        if [ ! -f "${data_dir}/random_${size}M.dat" ]; then
+          dd if=/dev/urandom of="${data_dir}/random_${size}M.dat" bs=1M count="${size}" > /dev/null 2>&1
+	  echo "Random file: ${data_dir}/random_${size}M.dat created"
+	fi
+      done
+
+      echo "Random data accesible through http://${ip}/generated"
+
+    ;;
+    t)
+      rm $torrent_dir -rf
+      mkdir -p $torrent_dir
+
+      for file in ${data_dir}/*
+      do
+        file_name=$(echo "${file}" | cut -f 6 -d '/')
+        transmission-create -p -t "http://${ip}:6969/announce" -o "${torrent_dir}/${file_name}.torrent" "${file}"
+        transmission-remote -a "${torrent_dir}/${file_name}.torrent"
+	echo "Torrent file: ${torrent_dir}/${file_name}.torrent created and serving"
+      done
+
+      chmod 644 $torrent_dir/*.torrent
+
+      echo "Torrent files are accessible through http://${ip}/torrents"
+
+    ;;
+    *)
+      usage
+      exit
+    ;;
+  esac
+done
