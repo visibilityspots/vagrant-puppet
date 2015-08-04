@@ -1,0 +1,7 @@
+---
+classes:
+  - roles::hubot
+
+nodejs::manage_package_repo: false
+nodejs::npm_package_ensure: installed
+nodejs::nodejs_dev_package_name: installed

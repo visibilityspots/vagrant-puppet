@@ -65,67 +65,39 @@ $ gem install serverspec
 $ rake spec
 ```
 
+# HUBOTR
+
+I created this repository so people can quickly spin up a hubot instance fully automated using or the [xmpp](https://github.com/markstory/hubot-xmpp) adapter or the [irc](https://github.com/nandub/hubot-irc) adapter.
+
 ## Usage
 
-### Initialize your local environment
+### puppetmaster
 
 ```bash
-$ git clone git@github.com:visibilityspots/vagrant-puppet.git
+$ git destroy -f
+$ git checkout yum-repo-server
 $ git clean -d -f -f
 $ git submodule update --init --recursive
-```
-
-### Bringing up the puppetmaster
-```bash
 $ vagrant up puppetmaster
 ```
 
-### Bringing up a node against the puppetmaster
+### client
+
 ```bash
 $ vagrant up client
 ```
 
-### Bring up everything
+## Test
 
-Or your could immediatly bring up both nodes by
-```bash
-$ vagrant up --no-parallel
-```
-
-### Serverspec
+### serverspec
 
 To test the functionality you can run the serverspec tests
 ```bash
 $ rake spec
 ```
 
-### Using the different branches to spin up different proof of concepts
+The installation and configuration of the necessary services (nodejs - hubot) are all done by puppet.
 
-You have to checkout the branch you want to test:
+### manual
 
-```bash
-$ vagrant destroy -f
-$ git checkout puppetboard
-$ git clean -d -f -f
-$ git submodule update --init --recursive
-$ vagrant up puppetmaster
-$ vagrant up client
-```
-
-### Git clean
-
-When going back to the master branch you will notice that the puppet/environments/production/modules is messed up with the feature branches submodules. You can easily clean this up with
-
-```bash
-$ git clean -d -f -f
-```
-
-according to the docs:
-
-       -d
-           Remove untracked directories in addition to untracked files. If an untracked directory is managed by a different Git repository, it is not removed by default. Use -f option twice if you really want to remove such a directory.
-
-       -f, --force
-           If the Git configuration variable clean.requireForce is not set to false, git clean will refuse to delete files or directories unless given -f, -n or -i. Git will refuse to delete directories with .git sub directory or file unless a second -f is given.
-           This affects also git submodules where the storage area of the removed submodule under .git/modules/ is not removed until -f is given twice.
-
+To see if the hubot chatbot actually works you could connect yourself on irc freenode through the channel #myhubot-irc
