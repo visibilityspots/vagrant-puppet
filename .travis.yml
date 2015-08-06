@@ -5,7 +5,7 @@ install:
  - sudo apt-get update -q
  - sudo apt-get install -q virtualbox virtualbox-dkms linux-headers-generic --fix-missing
  - sudo apt-get install -q vagrant
- - vagrant plugin install vagrant-hostmanager
+# - vagrant plugin install vagrant-hostmanager
 
 
 script:
