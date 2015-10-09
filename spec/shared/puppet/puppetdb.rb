@@ -3,6 +3,10 @@ shared_examples 'puppet::puppetdb' do
     it { should be_installed }
   end
 
+  describe package('puppetdb-termini') do
+    it { should be_installed }
+  end
+
   describe service('puppetdb') do
     it { should be_enabled }
     it { should be_running }

@@ -27,18 +27,18 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.provider :virtualbox do |virtualbox, override|
-    override.vm.box = "vStone/centos-6.x-puppet.3.x"
+    override.vm.box = "vStone/centos-6.x-puppet.4.x"
   end
 
   config.vm.provider :lxc do |lxc, override|
-    override.vm.box = "visibilityspots/centos-6.x-puppet-3.x"
+    override.vm.box = "visibilityspots/centos-6.x-puppet-4.x"
   end
 
   config.vm.define :puppetmaster do |puppetmaster|
     puppetmaster.vm.host_name = "puppet"
-    puppetmaster.vm.synced_folder "hieradata", "/etc/hiera", type: "rsync",
+    puppetmaster.vm.synced_folder "puppet/environments/production", "/etc/puppetlabs/code/environments/production", type: "rsync",
       rsync__chown: false
-    puppetmaster.vm.synced_folder "puppet/environments/production", "/etc/puppet/environments/production", type: "rsync",
+    puppetmaster.vm.synced_folder "hieradata", "/etc/puppetlabs/code/environments/production/hieradata/ ", type: "rsync",
       rsync__chown: false
     puppetmaster.vm.provider :lxc do |lxc|
       lxc.container_name = 'dev-puppetmaster'
@@ -59,6 +59,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       override.vm.network "private_network", ip: "10.0.5.3"
     end
     client.vm.provision "puppet_server" do |puppet|
+      binary_path = "/opt/puppetlabs/bin"
       default_env = 'production'
       ext_env = ENV['VAGRANT_PUPPET_ENV']
       env = ext_env ? ext_env : default_env

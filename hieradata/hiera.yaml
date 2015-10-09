@@ -8,7 +8,7 @@
         - yaml
 
 :yaml:
-        :datadir: '/etc/hiera'
+        :datadir: '/etc/puppetlabs/code/environments/production/hieradata/'
 
 :merge_behaviour:
         :deeper

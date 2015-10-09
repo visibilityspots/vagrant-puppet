@@ -87,7 +87,7 @@ $ vagrant up client
 
 ### Bring up everything
 
-Or your could immediatly bring up both nodes by
+Or your could immediately bring up both nodes by
 ```bash
 $ vagrant up --no-parallel
 ```
@@ -129,3 +129,20 @@ according to the docs:
            If the Git configuration variable clean.requireForce is not set to false, git clean will refuse to delete files or directories unless given -f, -n or -i. Git will refuse to delete directories with .git sub directory or file unless a second -f is given.
            This affects also git submodules where the storage area of the removed submodule under .git/modules/ is not removed until -f is given twice.
 
+## ISSUES
+
+### Puppetmaster fails to run puppet the 4th time
+
+There is this issue when running puppet the fourth time it fails on the puppetmaster:
+
+```bash
+==> puppetmaster: Error: Could not retrieve catalog from remote server: Error 400 on SERVER: Attempt to assign to a reserved variable name: 'trusted' on node puppet.lxc
+```
+
+To get this one sorted you have to restart the puppetserver service on the puppetmaster. Once that's done it didn't happened anymore on my side.
+
+```
+$ vagrant ssh puppetmaster
+$ sudo -s
+# /etc/init.d/puppetmaster restart
+```
