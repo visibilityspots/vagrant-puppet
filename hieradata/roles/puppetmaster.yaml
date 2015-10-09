@@ -6,6 +6,7 @@ puppetdb::ssl_listen_address: 0.0.0.0
 puppetdb::master::config::puppetdb_server: puppet
 puppetdb::master::config::restart_puppet: false
 puppetdb::master::config::manage_storeconfigs: false
+puppetdb::globals::version: 2.3.7-1.el6
 
 puppet::server: true
 puppet::puppetmaster: puppet
