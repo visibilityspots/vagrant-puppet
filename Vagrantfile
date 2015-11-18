@@ -7,6 +7,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     raise 'vagrant-hostmanager plugin is not installed!'
   end
 
+  unless Vagrant.has_plugin?("vagrant-triggers")
+    raise 'vagrant-triggers plugin is not installed!'
+  end
+
   if Vagrant.has_plugin?("vagrant-hostmanager")
     config.hostmanager.enabled = true
     config.hostmanager.manage_host = true
@@ -14,6 +18,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   if Vagrant.has_plugin?("vagrant-cachier")
     config.cache.scope = :box
+  end
+
+  if Vagrant.has_plugin?("vagrant-triggers")
+    config.trigger.after [:destroy] do
+        target = @machine.name.to_s
+        puppetmaster = "puppetmaster"
+        if target != puppetmaster
+          system("vagrant ssh #{puppetmaster} -c 'sudo puppet cert clean #{target}.*'" )
+          system("vagrant ssh #{puppetmaster} -c 'sudo puppet node deactivate #{target}.*'" )
+        end
+    end
   end
 
   set_proxy = false
