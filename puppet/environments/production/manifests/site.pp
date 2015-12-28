@@ -11,6 +11,6 @@ if versioncmp($::puppetversion,'3.6.1') >= 0 {
   }
 }
 
-Yumrepo <| |> -> User <| |> -> Package <| |>
+Yumrepo <| |> -> Package <| |>
 
 hiera_include('classes')
