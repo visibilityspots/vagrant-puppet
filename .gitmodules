@@ -40,3 +40,12 @@
 [submodule "puppet/environments/production/modules/stdlib"]
 	path = puppet/environments/production/modules/stdlib
 	url = git@github.com:puppetlabs/puppetlabs-stdlib.git
+[submodule "puppet/environments/production/modules/icinga2"]
+	path = puppet/environments/production/modules/icinga2
+	url = git@github.com:Icinga/puppet-icinga2.git
+[submodule "puppet/environments/production/modules/icingaweb2"]
+	path = puppet/environments/production/modules/icingaweb2
+	url = git@github.com:Icinga/puppet-icingaweb2.git
+[submodule "puppet/environments/production/modules/mysql"]
+	path = puppet/environments/production/modules/mysql
+	url = git@github.com:puppetlabs/puppetlabs-mysql.git
