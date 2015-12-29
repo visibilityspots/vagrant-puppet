@@ -40,3 +40,6 @@
 [submodule "puppet/environments/production/modules/stdlib"]
 	path = puppet/environments/production/modules/stdlib
 	url = git@github.com:puppetlabs/puppetlabs-stdlib.git
+[submodule "puppet/environments/production/modules/overpass_api"]
+	path = puppet/environments/production/modules/overpass_api
+	url = git@github.com:visibilityspots/puppet-overpass_api.git
