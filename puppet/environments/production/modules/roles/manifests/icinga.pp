@@ -32,4 +32,6 @@ class roles::icinga {
 #    target_file_name => "${::fqdn}.conf"
 #  }
 
+  Mysql::Db[$::icinga2::server::db_name] ->
+  Class['::icinga2::server::install::execs']
 }
