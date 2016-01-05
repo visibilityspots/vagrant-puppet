@@ -16,4 +16,5 @@ class profiles::icingaweb2 {
   }
 
   include ::icingaweb2
+  include ::icingaweb2::mod::monitoring
 }
