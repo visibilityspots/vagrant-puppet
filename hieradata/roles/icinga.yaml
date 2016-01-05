@@ -17,27 +17,22 @@ databases:
     host: 'localhost'
     grant: ['all']
 
-  icinga-ido:
-    user: 'icingaido'
-    password: 'icingaido'
-    host: 'localhost'
-    grant: ['all']
-
-icinga2::db_type: mysql
-icinga2::db_host: localhost
-icinga2::db_name: icinga2
-icinga2::db_user: icinga2
-icinga2::db_password: icinga2
+icinga2::server::server_db_type: mysql
+icinga2::server::db_host: localhost
+icinga2::server::db_name: icinga2
+icinga2::server::db_user: icinga2
+icinga2::server::db_password: icinga2
 icinga2::install_mail_utils_package: true
 
 icingaweb2::install_method: package
 
 icingaweb2::web_db: mysql
-icingaweb2::web_db_host: localhost
 icingaweb2::web_db_name: icingaweb2
-icingaweb2::web_db_port: 3306
 icingaweb2::web_db_user: icingaweb2
 icingaweb2::web_db_pass: icingaweb2
+icingaweb2::ido_db_name: icinga2
+icingaweb2::ido_db_pass: icinga2
+icingaweb2::ido_db_user: icinga2
 icingaweb2::manage_apache_vhost: true
 icingaweb2::config_dir_mode: '0775'
 icingaweb2::config_file_mode: '0664'
