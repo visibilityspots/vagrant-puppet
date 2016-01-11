@@ -16,6 +16,16 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.hostmanager.manage_host = true
   end
 
+  if Vagrant.has_plugin?("vagrant-triggers")
+    config.trigger.before [:destroy] do
+        target = @machine.name.to_s
+        targethost = `vagrant ssh #{target} -c 'facter fqdn'`.strip()
+        if target != 'puppetmaster'
+          system("vagrant ssh puppetmaster -c 'sudo puppet cert -c #{targethost}'")
+        end
+    end
+  end
+
   if Vagrant.has_plugin?("vagrant-cachier")
     config.cache.scope = :box
   end
