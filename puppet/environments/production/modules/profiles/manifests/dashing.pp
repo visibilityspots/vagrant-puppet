@@ -13,7 +13,8 @@ class profiles::dashing {
     }
   } else {
     package { 'epel-release':
-      ensure => 'installed'
+      ensure => 'installed',
+      before => Package['nodejs']
     }
   }
 
@@ -28,20 +29,9 @@ class profiles::dashing {
     ensure => 'installed'
   }
 
-  $gems = [
-    'dashing',
-    'json'
-  ]
-
-  package { $gems:
-    ensure   => 'installed',
-    provider => 'gem',
-    notify   => Exec['extend_path']
-  }
-
-  exec { 'extend_path':
-    command     => 'echo \'PATH=$PATH:/opt/rh/ruby193/root/usr/local/bin/\' >> /root/.bashrc',
-    refreshonly => true
+  exec { 'initialize-ruby-env':
+    command => 'scl enable ruby193 \'gem install --bindir /usr/bin --no-rdoc --no-ri dashing json\'',
+    unless  => "scl enable ruby193 'gem list'| grep -qs dashing"
   }
 
 }
