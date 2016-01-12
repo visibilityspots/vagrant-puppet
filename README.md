@@ -65,67 +65,33 @@ $ gem install serverspec
 $ rake spec
 ```
 
+# DASHING
+
+This project is used to setup a [dashing](https://dashing.io) setup so you could easily start creating your own dashing dashboard for development purposes.
+
 ## Usage
 
-### Initialize your local environment
-
-```bash
-$ git clone git@github.com:visibilityspots/vagrant-puppet.git
-$ git clean -d -f -f
-$ git submodule update --init --recursive
-```
-
-### Bringing up the puppetmaster
-```bash
-$ vagrant up puppetmaster
-```
-
-### Bringing up a node against the puppetmaster
-```bash
-$ vagrant up client
-```
-
-### Bring up everything
-
-Or your could immediatly bring up both nodes by
-```bash
-$ vagrant up --no-parallel
-```
-
-### Serverspec
-
-To test the functionality you can run the serverspec tests
-```bash
-$ rake spec
-```
-
-### Using the different branches to spin up different proof of concepts
-
-You have to checkout the branch you want to test:
+### puppetmaster
 
 ```bash
 $ vagrant destroy -f
-$ git checkout puppetboard
+$ git checkout dashing
 $ git clean -d -f -f
 $ git submodule update --init --recursive
 $ vagrant up puppetmaster
-$ vagrant up client
 ```
 
-### Git clean
-
-When going back to the master branch you will notice that the puppet/environments/production/modules is messed up with the feature branches submodules. You can easily clean this up with
+### dashing node
 
 ```bash
-$ git clean -d -f -f
+$ vagrant up client
+$ vagrant ssh client
+$ dashing new dashboard
+$ cd dashboard
+$ bundle
+$ dashing start
 ```
 
-according to the docs:
+Surf on your host machine to [localhost:3030](http://client:3030/sample) and you should see a nice dashboard:
 
-       -d
-           Remove untracked directories in addition to untracked files. If an untracked directory is managed by a different Git repository, it is not removed by default. Use -f option twice if you really want to remove such a directory.
-
-       -f, --force
-           If the Git configuration variable clean.requireForce is not set to false, git clean will refuse to delete files or directories unless given -f, -n or -i. Git will refuse to delete directories with .git sub directory or file unless a second -f is given.
-           This affects also git submodules where the storage area of the removed submodule under .git/modules/ is not removed until -f is given twice.
-
+![dashing-dashboard](/img/dashing.png)
