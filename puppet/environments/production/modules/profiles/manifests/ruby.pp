@@ -12,7 +12,8 @@ class profiles::ruby {
 
   package { $ruby193_soft:
     ensure  => 'present',
-    require => Package['centos-release-SCL']
+    require => Package['centos-release-SCL'],
+    before  => Exec['make-ruby193-default']
   }
 
   exec { 'make-ruby193-default':
