@@ -46,6 +46,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.provider :lxc do |lxc, override|
     override.vm.box = "visibilityspots/centos-6.x-puppet-3.x"
+    lxc.backingstore = 'dir'
   end
 
   config.vm.define :puppetmaster do |puppetmaster|

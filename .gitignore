@@ -8,3 +8,4 @@ scripts/set-proxy.sh
 .rspec
 *.bak
 *.lock
+.toRemove
