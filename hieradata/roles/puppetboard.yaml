@@ -11,6 +11,7 @@ puppetboard::puppetdb_key: /var/lib/puppet/ssl/private_keys/%{::fqdn}.pem
 puppetboard::puppetdb_ssl: False
 puppetboard::puppetdb_cert: /var/lib/puppet/ssl/certs/%{::fqdn}.pem
 puppetboard::groups: puppet
+puppetboard::enable_catalog: true
 
 apache::manage_group: false
 apache::manage_user: false
