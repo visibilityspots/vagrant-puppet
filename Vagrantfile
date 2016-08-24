@@ -7,23 +7,27 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     raise 'vagrant-hostmanager plugin is not installed!'
   end
 
+  unless Vagrant.has_plugin?("vagrant-triggers")
+    raise 'vagrant-triggers plugin is not installed!'
+  end
+
   if Vagrant.has_plugin?("vagrant-hostmanager")
     config.hostmanager.enabled = true
     config.hostmanager.manage_host = true
   end
 
-  if Vagrant.has_plugin?("vagrant-cachier")
-    config.cache.scope = :box
+  if Vagrant.has_plugin?("vagrant-triggers")
+    config.trigger.before [:destroy] do
+        target = @machine.name.to_s
+        targethost = `vagrant ssh #{target} -c 'facter fqdn'`.strip()
+        if target != 'puppetmaster'
+          system("vagrant ssh puppetmaster -c 'sudo puppet cert -c #{targethost}'")
+        end
+    end
   end
 
-  set_proxy = false
-  set_proxy_env = ENV['VAGRANT_SET_PROXY']
-  proxy = set_proxy_env ? set_proxy_env : set_proxy
-
-  if proxy == 'true'
-    if File.exist?('scripts/set-proxy.sh')
-      config.vm.provision "shell", path: "scripts/set-proxy.sh"
-    end
+  if Vagrant.has_plugin?("vagrant-cachier")
+    config.cache.scope = :box
   end
 
   config.vm.provider :virtualbox do |virtualbox, override|
@@ -32,6 +36,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.provider :lxc do |lxc, override|
     override.vm.box = "visibilityspots/centos-6.x-puppet-3.x"
+    lxc.backingstore = 'dir'
   end
 
   config.vm.define :puppetmaster do |puppetmaster|
