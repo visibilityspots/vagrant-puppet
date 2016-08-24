@@ -69,7 +69,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     node01.vm.provision "puppet_server" do |puppet|
       default_env = 'production'
       ext_env = ENV['VAGRANT_PUPPET_ENV']
-      env = ext_env ? ext_env : puppet_env
+      env = ext_env ? ext_env : default_env
       puppet.puppet_server = "puppet"
       puppet.options = ["--environment", "#{env}", "--test"]
     end
