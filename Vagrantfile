@@ -30,16 +30,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.cache.scope = :box
   end
 
-  set_proxy = false
-  set_proxy_env = ENV['VAGRANT_SET_PROXY']
-  proxy = set_proxy_env ? set_proxy_env : set_proxy
-
-  if proxy == 'true'
-    if File.exist?('scripts/set-proxy.sh')
-      config.vm.provision "shell", path: "scripts/set-proxy.sh"
-    end
-  end
-
   config.vm.provider :virtualbox do |virtualbox, override|
     override.vm.box = "vStone/centos-6.x-puppet.3.x"
   end
