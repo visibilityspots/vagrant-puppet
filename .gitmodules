@@ -31,9 +31,6 @@
 [submodule "puppet/environments/production/modules/postgresql"]
 	path = puppet/environments/production/modules/postgresql
 	url = git@github.com:puppetlabs/puppetlabs-postgresql.git
-[submodule "puppet/environments/production/modules/puppet"]
-	path = puppet/environments/production/modules/puppet
-	url = git@github.com:theforeman/puppet-puppet.git
 [submodule "puppet/environments/production/modules/puppetdb"]
 	path = puppet/environments/production/modules/puppetdb
 	url = git@github.com:puppetlabs/puppetlabs-puppetdb.git
