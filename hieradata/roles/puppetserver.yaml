@@ -7,7 +7,7 @@ puppetdb::master::config::puppetdb_server: puppet
 puppetdb::master::config::puppet_service_name: puppetserver
 puppetdb::master::config::restart_puppet: false
 puppetdb::master::config::manage_storeconfigs: false
-puppetdb::globals::version: 2.3.7-1.el6
+puppetdb::globals::version: 2.3.8-1.el7
 
 puppet::server: true
 puppet::puppetmaster: puppet
