@@ -6,9 +6,9 @@ class roles::icinga {
   if ! defined(Yumrepo['epel']){
     yumrepo { 'epel':
       descr      => 'Extra Packages for Enterprise Linux',
-      baseurl    => 'http://download.fedoraproject.org/pub/epel/6/$basearch',
-      mirrorlist => 'https://mirrors.fedoraproject.org/metalink?repo=epel-6&arch=$basearch',
-      gpgkey     => 'http://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-6',
+      baseurl    => 'http://download.fedoraproject.org/pub/epel/7/$basearch',
+      mirrorlist => 'https://mirrors.fedoraproject.org/metalink?repo=epel-7&arch=$basearch',
+      gpgkey     => 'http://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-7',
       enabled    => 1,
       gpgcheck   => 1;
     }
