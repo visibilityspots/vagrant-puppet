@@ -1,0 +1,5 @@
+icinga:
+
+update icinga2 puppet-module and refactor puppet code 
+check functionality
+write icinga2 specific documentation
