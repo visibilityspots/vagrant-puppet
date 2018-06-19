@@ -7,10 +7,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     raise 'vagrant-hostmanager plugin is not installed!'
   end
 
-  unless Vagrant.has_plugin?("vagrant-triggers")
-    raise 'vagrant-triggers plugin is not installed!'
-  end
-
   if Vagrant.has_plugin?("vagrant-hostmanager")
     config.hostmanager.enabled = true
     config.hostmanager.manage_host = true
@@ -52,6 +48,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       override.vm.network "private_network", ip: "10.0.5.2"
       virtualbox.customize ["modifyvm", :id, "--memory", 3072]
     end
+    puppetmaster.vm.provision "shell", inline: "hostname puppet"
     puppetmaster.vm.provision "shell", path: "scripts/puppetmaster.sh"
   end
 
@@ -63,6 +60,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     client.vm.provider :virtualbox do |virtualbox, override|
       override.vm.network "private_network", ip: "10.0.5.3"
     end
+    client.vm.provision "shell", inline: "hostname client"
     client.vm.provision "puppet_server" do |puppet|
       default_env = 'production'
       ext_env = ENV['VAGRANT_PUPPET_ENV']
